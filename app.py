@@ -123,9 +123,13 @@ with st.form("form_predicciones"):
             if activity != "— Seleccionar —":
                 impl_options = ["— Seleccionar —"] + implements_by_activity.get(activity, [])
             else:
-                impl_options = ["— Seleccionar —"] + sorted(set(implements_by_activity.get(a, []) for a in []))
+                impl_options = ["— Seleccionar —"] + sorted(
+                    set(implements_by_activity.get(a, []) for a in [])
+                )
                 # Sin actividad: se muestra el catálogo completo.
-                all_impl = sorted(set(x for values in implements_by_activity.values() for x in values))
+                all_impl = sorted(
+                    set(x for values in implements_by_activity.values() for x in values)
+                )
                 impl_options = ["— Seleccionar —"] + all_impl
 
             implement = st.selectbox(
@@ -155,14 +159,23 @@ with st.form("form_predicciones"):
             "horas": hours,
         })
 
-    submitted = st.form_submit_button("CALCULAR CONSUMO", type="primary", use_container_width=True)
+    submitted = st.form_submit_button(
+        "CALCULAR CONSUMO",
+        type="primary",
+        use_container_width=True
+    )
 
 if submitted:
     valid_rows = []
     warnings = []
 
     for r in rows:
-        if r["tractor"] == "— Seleccionar —" and r["activity"] == "— Seleccionar —" and r["implemento"] == "— Seleccionar —" and r["horas"] == 0:
+        if (
+            r["tractor"] == "— Seleccionar —"
+            and r["actividad"] == "— Seleccionar —"
+            and r["implemento"] == "— Seleccionar —"
+            and r["horas"] == 0
+        ):
             continue
 
         missing = []
@@ -204,7 +217,7 @@ if submitted:
                 "HP": int(r["hp"]),
                 "Actividad": r["actividad"],
                 "Implemento": r["implemento"],
-                "Horas": r["hours"],
+                "Horas": r["horas"],
                 "ACPM estimado (gal)": round(float(pred), 2),
             })
 
@@ -213,7 +226,9 @@ if submitted:
         st.markdown("### Resultados")
 
         display_df = result_df.copy()
-        display_df["ACPM estimado (gal)"] = display_df["ACPM estimado (gal)"].map(lambda x: f"{x:,.2f}")
+        display_df["ACPM estimado (gal)"] = display_df["ACPM estimado (gal)"].map(
+            lambda x: f"{x:,.2f}"
+        )
         display_df["Horas"] = display_df["Horas"].map(lambda x: f"{x:,.1f}")
 
         st.dataframe(display_df, use_container_width=True, hide_index=True)
