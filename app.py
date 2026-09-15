@@ -168,7 +168,7 @@ if submitted:
         missing = []
         if r["tractor"] == "— Seleccionar —":
             missing.append("tractor")
-        if r["activity"] == "— Seleccionar —":
+        if r["actividad"] == "— Seleccionar —":
             missing.append("actividad")
         if r["implemento"] == "— Seleccionar —":
             missing.append("implemento")
