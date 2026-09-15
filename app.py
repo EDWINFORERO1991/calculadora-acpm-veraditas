@@ -202,7 +202,7 @@ if submitted:
                 "Fila": r["fila"],
                 "Tractor": r["tractor"],
                 "HP": int(r["hp"]),
-                "Actividad": r["activity"],
+                "Actividad": r["actividad"],
                 "Implemento": r["implemento"],
                 "Horas": r["hours"],
                 "ACPM estimado (gal)": round(float(pred), 2),
